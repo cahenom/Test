@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekam Cookies</title>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Website Perekam Cookies</h1>
+    <p>Cookie akan disimpan secara otomatis dengan nama sesuai judul website ini.</p>
+    <a href="result.html">Lihat Semua Cookies</a>
+</body>
+</html>
+  
