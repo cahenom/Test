@@ -1,13 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cookie Recorder</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hacker Animation</title>
+    <style>
+        body {
+            background-color: black;
+            color: lime;
+            font-family: monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #hackerText {
+            font-size: 2em;
+            white-space: pre;
+        }
+    </style>
 </head>
 <body>
-<a href="#" id="recordCookies">Record Cookies</a>
+    <div id="hackerText"></div>
+    <script>
+        const text = "271T idiot grovment";
+        let index = 0;
 
-<script src="script.js"></script>
+        function typeText() {
+            if (index < text.length) {
+                document.getElementById("hackerText").textContent += text.charAt(index);
+                index++;
+                setTimeout(typeText, 100); // Adjust the typing speed here (milliseconds)
+            } else {
+                setTimeout(() => {
+                    document.getElementById("hackerText").textContent = "";
+                    index = 0;
+                    typeText();
+                }, 1000); // Adjust the delay before restarting the animation (milliseconds)
+            }
+        }
+
+        window.onload = typeText;
+    </script>
 </body>
 </html>
