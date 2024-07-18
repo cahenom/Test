@@ -16,33 +16,62 @@
             margin: 0;
             overflow: hidden;
         }
-        #hackerText {
+        .hacker-text {
             font-size: 2em;
             white-space: pre;
+        }
+        .hacker-img {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: -1;
         }
     </style>
 </head>
 <body>
-    <div id="hackerText"></div>
+    <div id="hackerText" class="hacker-text"></div>
+    <img id="hackerImg" class="hacker-img" src="https://example.com/hacker-image.png" alt="Hacker Image">
+    
     <script>
-        const text = "271T idiot grovment";
+        const phrases = [
+            "271T idiot grovment",
+            "B3W4R3 0F TH3 H4CK3R",
+            "N0B0DY IS S4F3",
+            "W3 4R3 L3G10N",
+            "H4CK TH3 PL4N3T"
+        ];
+
         let index = 0;
+        let charIndex = 0;
 
         function typeText() {
-            if (index < text.length) {
-                document.getElementById("hackerText").textContent += text.charAt(index);
-                index++;
-                setTimeout(typeText, 100); // Adjust the typing speed here (milliseconds)
+            if (charIndex < phrases[index].length) {
+                document.getElementById("hackerText").textContent += phrases[index].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeText, 100); // Typing speed (milliseconds)
             } else {
-                setTimeout(() => {
-                    document.getElementById("hackerText").textContent = "";
-                    index = 0;
-                    typeText();
-                }, 1000); // Adjust the delay before restarting the animation (milliseconds)
+                setTimeout(eraseText, 1000); // Delay before erasing (milliseconds)
             }
         }
 
-        window.onload = typeText;
+        function eraseText() {
+            if (charIndex >= 0) {
+                const text = phrases[index].substring(0, charIndex);
+                document.getElementById("hackerText").textContent = text;
+                charIndex--;
+                setTimeout(eraseText, 50); // Erasing speed (milliseconds)
+            } else {
+                index = (index + 1) % phrases.length;
+                setTimeout(typeText, 500); // Delay before typing next phrase (milliseconds)
+            }
+        }
+
+        window.onload = () => {
+            typeText();
+            document.getElementById("hackerImg").style.display = "block"; // Show hacker image
+        };
     </script>
 </body>
 </html>
