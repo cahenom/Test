@@ -10,6 +10,7 @@
             color: lime;
             font-family: monospace;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             height: 100vh;
@@ -19,20 +20,35 @@
         .hacker-text {
             font-size: 2em;
             white-space: pre;
+            opacity: 0;
+            animation: fadeIn 1s forwards;
         }
         .hacker-img {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: -1;
+            width: 150px;
+            margin-top: 20px;
+            animation: flicker 1.5s infinite alternate;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        @keyframes flicker {
+            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% {
+                opacity: 0.99;
+                text-shadow: -0.25px -0.25px 0 lime, 0.25px 0.25px 0 lime, -0.25px 0.25px 0 lime, 0.25px -0.25px 0 lime;
+            }
+            20%, 21.999%, 63%, 63.999%, 65%, 69.999% {
+                opacity: 0.4;
+                text-shadow: none;
+            }
         }
     </style>
 </head>
 <body>
     <div id="hackerText" class="hacker-text"></div>
-    <img id="hackerImg" class="hacker-img" src="https://example.com/hacker-image.png" alt="Hacker Image">
+    <img id="hackerImg" class="hacker-img" src="https://via.placeholder.com/150/00FF00/000000?text=Hacker" alt="Hacker Image">
+    
+    <audio id="typeSound" src="https://www.soundjay.com/button/beep-07.wav" preload="auto"></audio>
+    <audio id="bgSound" src="https://www.soundjay.com/nature/rain-01.mp3" preload="auto" loop></audio>
     
     <script>
         const phrases = [
@@ -45,11 +61,15 @@
 
         let index = 0;
         let charIndex = 0;
+        const hackerText = document.getElementById("hackerText");
+        const typeSound = document.getElementById("typeSound");
+        const bgSound = document.getElementById("bgSound");
 
         function typeText() {
             if (charIndex < phrases[index].length) {
-                document.getElementById("hackerText").textContent += phrases[index].charAt(charIndex);
+                hackerText.textContent += phrases[index].charAt(charIndex);
                 charIndex++;
+                typeSound.play();
                 setTimeout(typeText, 100); // Typing speed (milliseconds)
             } else {
                 setTimeout(eraseText, 1000); // Delay before erasing (milliseconds)
@@ -59,7 +79,7 @@
         function eraseText() {
             if (charIndex >= 0) {
                 const text = phrases[index].substring(0, charIndex);
-                document.getElementById("hackerText").textContent = text;
+                hackerText.textContent = text;
                 charIndex--;
                 setTimeout(eraseText, 50); // Erasing speed (milliseconds)
             } else {
@@ -70,7 +90,7 @@
 
         window.onload = () => {
             typeText();
-            document.getElementById("hackerImg").style.display = "block"; // Show hacker image
+            bgSound.play(); // Play background sound
         };
     </script>
 </body>
